@@ -1,0 +1,520 @@
+﻿<Window x:Class="TBQuestGame.PresentationLayer.GameSessionView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TBQuestGame.PresentationLayer"
+        mc:Ignorable="d"
+        Background="PaleTurquoise"
+        Title="GameSessionView"
+        Height="600" 
+        Width="900"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <Style x:Key="MainPanelLabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="FontFamily" Value="Lucida Console"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="SecondaryLabelStyle" TargetType="Label">
+            <Setter Property="Foreground" Value="Blue"/>
+            <Setter Property="FontFamily" Value="Lucida Console"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Margin" Value="35,5,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="MainPanelButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10,0,10,0"/>
+            <Setter Property="Width" Value="75"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Background" Value="DarkGray"/>
+            <Setter Property="Foreground" Value="PaleTurquoise"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid 
+                            Width="{TemplateBinding Width}" 
+                            Height="{TemplateBinding Height}" 
+                            ClipToBounds="True">
+                            <Rectangle 
+                                x:Name="innerRectangle" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                Fill="{TemplateBinding Background}" 
+                                RadiusX="5" 
+                                RadiusY="5" />
+                            <!-- Present Content (text) of the button. -->
+                            <StackPanel Name="myContentPresenterStackPanel">
+                                <ContentPresenter 
+                                    x:Name="myContentPresenter" 
+                                    Margin="2" 
+                                    HorizontalAlignment="Center"
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black"/>
+                            </StackPanel>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="LightSteelBlue" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BorderStyle" TargetType="Border">
+            <Setter Property="BorderBrush" Value="DarkSlateBlue"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+        <Style x:Name="MainTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="DarkViolet"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="211*"/>
+            <ColumnDefinition Width="71*"/>
+            <ColumnDefinition Width="612*"/>
+        </Grid.ColumnDefinitions>
+        <Border
+            Margin="10"
+            BorderThickness="2"
+            Style="{StaticResource BorderStyle}" Grid.ColumnSpan="3">
+            <Grid
+                Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid     
+                    HorizontalAlignment="Left" 
+                    Height="200" 
+                    Margin="10,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="271" 
+                    RenderTransformOrigin="-0.194,-0.153">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label    
+                        Content="User Profile"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource MainPanelLabelStyle}"/>
+                    <Label 
+                        Content="Name:"  
+                        Grid.Row="1" 
+                        Style="{StaticResource SecondaryLabelStyle}"/>
+                    <Label 
+                        Content="Age:" 
+                        Grid.Row="2"
+                        Style="{StaticResource SecondaryLabelStyle}"/>
+                    <Label
+                        Content="Health:"
+                        Grid.Row="3"
+                        Style="{StaticResource SecondaryLabelStyle}"/>
+                    <Label
+                        Content="Lives:"
+                        Grid.Row="4"
+                        Style="{StaticResource SecondaryLabelStyle}"/>
+                    <Label
+                        Content="Currency:"
+                        Grid.Row="5"
+                        Style="{StaticResource SecondaryLabelStyle}"/>
+                    <TextBlock 
+                        x:Name="NameTextBlock"
+                        Grid.Column="1" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,5,0,0" 
+                        Grid.Row="1" 
+                        TextWrapping="Wrap" 
+                        Text="{Binding Player.Name}" 
+                        VerticalAlignment="Top"
+                        Width="115" 
+                        Height="27"/>
+                    <TextBlock 
+                        x:Name="AgeTextBlock"
+                        Grid.Column="1" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,5,0,0" 
+                        Grid.Row="2" 
+                        TextWrapping="Wrap" 
+                        Text="{Binding Player.Age}" 
+                        VerticalAlignment="Top" Width="115" Height="27"/>
+                    <TextBlock 
+                        x:Name="HealthTextBlock"
+                        Grid.Column="1" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,5,0,0" 
+                        Grid.Row="3" 
+                        TextWrapping="Wrap" 
+                        Text="{Binding Player.Health}" 
+                        VerticalAlignment="Top" 
+                        Width="115" 
+                        Height="27"/>
+                    <TextBlock 
+                        x:Name="LivesTextBlock"
+                        Grid.Column="1" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,5,0,0" 
+                        Grid.Row="4" 
+                        TextWrapping="Wrap" 
+                        Text="{Binding Player.Lives}" 
+                        VerticalAlignment="Top" 
+                        Width="115" 
+                        Height="27"/>
+                    <TextBlock 
+                        x:Name="CurrencyTextBlock"
+                        Grid.Column="1" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,5,0,0" 
+                        Grid.Row="5" 
+                        TextWrapping="Wrap" 
+                        Text="{Binding Player.Currency}" 
+                        VerticalAlignment="Top"
+                        Width="115" 
+                        Height="27"/>
+                    <Border 
+                        HorizontalAlignment="Left" 
+                        Height="198" 
+                        Margin="10,0,0,0" 
+                        Grid.RowSpan="6" 
+                        VerticalAlignment="Top" 
+                        Width="260" 
+                        Grid.ColumnSpan="2"
+                        Style="{StaticResource BorderStyle}"/>
+                </Grid>
+                <Grid 
+                    HorizontalAlignment="Left" 
+                    Height="311"
+                    Margin="10,10,0,0" 
+                    Grid.Row="1" 
+                    VerticalAlignment="Top" 
+                    Width="271" 
+                    RenderTransformOrigin="-0.08,-0.393">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel 
+                        HorizontalAlignment="Left" 
+                        Height="156" 
+                        Margin="10,0,0,0" 
+                        VerticalAlignment="Top" 
+                        Width="250">
+                        <Label 
+                            Content="Mission Time and Status"
+                            Style="{StaticResource MainPanelLabelStyle}"/>
+                        <TextBlock 
+                            x:Name="MissonStatusTextBlock"
+                            TextWrapping="Wrap"
+                            Text="TextBlock"
+                            Height="100"
+                            Margin="5,10,5,10"/>
+                    </StackPanel>
+                    <StackPanel 
+                        HorizontalAlignment="Left"
+                        Height="145" 
+                        Margin="10,10,0,0" 
+                        Grid.Row="1" 
+                        VerticalAlignment="Top" 
+                        Width="250">
+                        <Label 
+                            Content="Mission Goals"
+                            Style="{StaticResource MainPanelLabelStyle}"/>
+                        <TextBlock
+                            x:Name="MissionGoalsTextBlock"
+                            TextWrapping="Wrap"
+                            Text="TextBlock" 
+                            Height="100"
+                            Margin="5,10,5,10"/>
+                    </StackPanel>
+                    <Separator HorizontalAlignment="Left" Height="100" Margin="0,105,0,0" VerticalAlignment="Top" Width="271" Grid.RowSpan="2"/>
+                </Grid>
+                <StackPanel 
+                    Grid.Column="1" 
+                    HorizontalAlignment="Left" 
+                    Height="175" 
+                    Margin="10,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="272">
+                    <Label 
+                        Content="Current Location Information"
+                        Style="{StaticResource MainPanelLabelStyle}"/>
+                    <TextBlock
+                        x:Name="CurrentLocationTextBlock"
+                        TextWrapping="Wrap"
+                        Text="{Binding Map.CurrentLocation.Description}" 
+                        FontSize="11"
+                        Height="48"
+                        Margin="5,0,5,0"/>
+                    <TabControl
+                        x:Name="ItemsInfoTabControl"
+                        Width="272">
+                        <TabItem Header="Items"
+                            x:Name="ItemsInfoTabItem" 
+                            Height="22"
+                            VerticalAlignment="Bottom">
+                            <DataGrid
+                                x:Name="LocationItemsDataGrid"
+                                Height="75"
+                                ItemsSource="{Binding Map.CurrentLocation.GameItems}"
+                                SelectedItem="{Binding CurrentGameItem}"
+                                FontSize="10"
+                                Width="266"
+                                AutoGenerateColumns="False"
+                                HeadersVisibility="Column"
+                                VerticalScrollBarVisibility="Auto">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Header="Description"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Information, Mode=OneWay}"
+                                        Width="*">
+                                        <DataGridTextColumn.ElementStyle>
+                                            <Style>
+                                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                            </Style>
+                                        </DataGridTextColumn.ElementStyle>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+                        </TabItem>
+                    </TabControl>
+                    
+                </StackPanel>
+                <Button 
+                    x:Name="PreviousIsleButton"
+                    Content="Previous Isle" 
+                    Grid.Column="1" 
+                    HorizontalAlignment="Left" 
+                    Margin="68,87,0,0" 
+                    VerticalAlignment="Top"
+                    HorizontalContentAlignment="Center"
+                    Width="90" 
+                    Style="{StaticResource MainPanelButtonStyle}" 
+                    Click="PreviousIsleButton_Click"
+                    />
+                <Button 
+                    x:Name="NextIsleButton"
+                    Content="Next Isle" 
+                    Grid.Column="1" 
+                    HorizontalAlignment="Left" 
+                    HorizontalContentAlignment="Center"
+                    Margin="197,87,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="77"
+                    Style="{StaticResource MainPanelButtonStyle}"
+                    Click="NextIsleButton_Click"/>
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+                    <Label 
+                        Content="Game Play and Actions"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" Margin="20,10,0,0"
+                        Height="35" 
+                        Width="275"
+                        Style="{StaticResource MainPanelLabelStyle}"/>
+                    <Grid
+                        Grid.Row="2"
+                        Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            HorizontalAlignment="Left" 
+                            Margin="10,10,0,0" 
+                            TextWrapping="Wrap" 
+                            Text="{Binding MessageDisplay}" 
+                            VerticalAlignment="Top" 
+                            Height="200" Width="270"/>
+                        <StackPanel 
+                            Grid.Column="1" 
+                            HorizontalAlignment="Left" 
+                            Height="200" 
+                            Margin="10,10,0,0" 
+                            VerticalAlignment="Top" 
+                            Width="184">
+                            <Button
+                                x:Name="SpeakToButton"
+                                Content="Speak To"
+                                Margin="4"
+                                Style="{StaticResource MainPanelButtonStyle}"/>
+                            <Button 
+                                x:Name="AttackButton"
+                                Content="Attack"
+                                Margin="4"
+                                Style="{StaticResource MainPanelButtonStyle}"/>
+                            <Button 
+                                x:Name="DefendButton"
+                                Content="Defend"
+                                Margin="4"
+                                Style="{StaticResource MainPanelButtonStyle}"/>
+                            <Button
+                                x:Name="RetreatButton"
+                                Content="Retreat"
+                                Margin="4"
+                                Style="{StaticResource MainPanelButtonStyle}"/>
+                            <Button
+                                x:Name="HelpButton"
+                                Content="Help"
+                                Margin="4"
+                            Style="{StaticResource MainPanelButtonStyle}"/>
+                            <Button
+                                x:Name="QuitButton"
+                                Content="Quit"
+                                Margin="4"
+                                Style="{StaticResource MainPanelButtonStyle}"
+                                Click="QuitButton_Click"/>
+                        </StackPanel>
+                        <Border
+                            Grid.Column="1" 
+                            HorizontalAlignment="Left" 
+                            Height="267" 
+                            CornerRadius="0"
+                            Margin="0,-57,0,0" 
+                            VerticalAlignment="Top"
+                            Width="189"
+                            Style="{StaticResource BorderStyle}"/>
+                    </Grid>
+                    <Grid
+                        Grid.Row="1"
+                        Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Description"
+                           Width="100"
+                           HorizontalContentAlignment="Center"
+                           Style="{StaticResource SecondaryLabelStyle}"/>
+                        <Label Content="Actions" 
+                           Grid.Column="1" 
+                           Margin="50,10,50,10" 
+                           Width="100"
+                           Style="{StaticResource SecondaryLabelStyle}"/>
+                    </Grid>
+                    <Border
+                        HorizontalAlignment="Left" 
+                        BorderThickness="1"
+                        Height="317" 
+                        Grid.RowSpan="3" 
+                        CornerRadius="0"
+                        VerticalAlignment="Top" 
+                        Width="570" 
+                        Style="{StaticResource BorderStyle}">
+                        <Border 
+                            Margin="0,0,0,267"
+                            BorderThickness="1"
+                            CornerRadius="0"
+                            Style="{StaticResource BorderStyle}"/>
+                    </Border>
+                </Grid>
+                <StackPanel 
+                    Grid.Column="2"
+                    HorizontalAlignment="Left" 
+                    Height="175" 
+                    Margin="10,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="270">
+                    <Label 
+                        Content="Inventory"
+                        Style="{StaticResource MainPanelLabelStyle}"/>
+                    <DataGrid
+                        
+                        
+                        
+                        x:Name="InventoryDataGrid"
+                        ItemsSource="{Binding Player.Inventory}"    
+                        SelectedItem="{Binding CurrentGameItem}"
+                        AutoGenerateColumns="False"
+                        HeadersVisibility="Column">11
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name"
+                                                Binding="{Binding Name, Mode=OneWay}"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="Price"
+                                                Binding="{Binding Price, Mode=OneWay}"
+                                                Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                <Button 
+                    x:Name="DropButton"
+                    Content="Drop" 
+                    Grid.Column="2" 
+                    HorizontalAlignment="Left" 
+                    Margin="30,190,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="75"
+                    Style="{StaticResource MainPanelButtonStyle}"
+                    Click="DropButton_Click"/>
+                <Button 
+                    x:Name="UseButton"
+                    Content="Use" 
+                    Grid.Column="2" 
+                    HorizontalAlignment="Left" 
+                    Margin="185,190,0,0"
+                    VerticalAlignment="Top"
+                    Width="75"
+                    Style="{StaticResource MainPanelButtonStyle}"/>
+                <Border
+                    Grid.Column="2" 
+                    HorizontalAlignment="Left" 
+                    CornerRadius="0"
+                    Height="223" 
+                    Margin="3,-11,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="281"
+                    Style="{StaticResource BorderStyle}"/>
+                <Button 
+                    Content="Pick Up"
+                    Grid.Column="1" 
+                    HorizontalAlignment="Left" 
+                    Margin="110,185,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="75"
+                    Style="{StaticResource MainPanelButtonStyle}" 
+                    Click="PickUpButton_Click"/>
+                        
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

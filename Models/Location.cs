@@ -18,7 +18,7 @@ namespace TBQuestGame.Models
 
        
 
-        //private int _modifyLives;
+        private int _modifyLives;
         //private bool _accessible;
 
 
@@ -49,11 +49,11 @@ namespace TBQuestGame.Models
             get { return _modifyHealth; }
             set { _modifyHealth = value; }
         }
-        //public int ModifyLives
-        //{
-        //    get { return _modifyLives; }
-        //    set { _modifyLives = value; }
-        //}
+        public int ModifyLives
+        {
+            get { return _modifyLives; }
+            set { _modifyLives = value; }
+        }
         public string Message
         {
             get { return _message; }
@@ -109,7 +109,7 @@ namespace TBQuestGame.Models
         /// <param name="selectedGameItem"></param>
         public void AddGameItemToLocation(GameItem selectedGameItem)
         {
-            if (selectedGameItem == null)
+            if (selectedGameItem != null)
             {
                 _gameItems.Add(selectedGameItem);
             }
@@ -122,7 +122,7 @@ namespace TBQuestGame.Models
         /// <param name="selectedGameItem"></param>
         public void RemoveGameItemFromLocation(GameItem selectedGameItem)
         {
-            if(selectedGameItem == null)
+            if(selectedGameItem != null)
             {
                 _gameItems.Remove(selectedGameItem);
             }

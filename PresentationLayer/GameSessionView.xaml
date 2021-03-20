@@ -268,7 +268,8 @@
                     <Label 
                         Content="Current Location Information"
                         Style="{StaticResource MainPanelLabelStyle}"/>
-                    <TextBlock
+                    <TextBlock 
+                        
                         x:Name="CurrentLocationTextBlock"
                         TextWrapping="Wrap"
                         Text="{Binding Map.CurrentLocation.Description}" 
@@ -465,7 +466,7 @@
                         ItemsSource="{Binding Player.Inventory}"    
                         SelectedItem="{Binding CurrentGameItem}"
                         AutoGenerateColumns="False"
-                        HeadersVisibility="Column">11
+                        HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name"
                                                 Binding="{Binding Name, Mode=OneWay}"
@@ -488,7 +489,8 @@
                     Click="DropButton_Click"/>
                 <Button 
                     x:Name="UseButton"
-                    Content="Use" 
+                    Content="Use"
+                    Visibility="Hidden"
                     Grid.Column="2" 
                     HorizontalAlignment="Left" 
                     Margin="185,190,0,0"

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TBQuestGame.DataLayer;
 using TBQuestGame.Models;
+using System.Collections.ObjectModel;
 
 namespace TBQuestGame.PresentationLayer
 {
@@ -16,7 +17,9 @@ namespace TBQuestGame.PresentationLayer
         private Player _player;
         private List<string> _messages;
         private Map _map;
+        private Location _currentLocation;
         private GameItem _currentGameItem;
+        
 
         
 
@@ -32,7 +35,15 @@ namespace TBQuestGame.PresentationLayer
                 OnPropertyChanged(nameof(Map));
             }
         }
-
+        public Location CurrentLocation
+        {
+            get { return _currentLocation; }
+            set
+            {
+                _currentLocation = value;
+                OnPropertyChanged(nameof(CurrentLocation));
+            }
+        }
         /// <summary>
         /// return the list of strings with new lines between each message
         /// </summary>
@@ -43,7 +54,7 @@ namespace TBQuestGame.PresentationLayer
 
         public Player Player
         {
-            // *possible error
+            
             get { return _player; }
             set 
             { 
@@ -88,6 +99,7 @@ namespace TBQuestGame.PresentationLayer
                 _map.CurrentLocationId -= 1;
                 Map.CurrentLocation = _map.MapLocations.FirstOrDefault(l => l.Id == _map.CurrentLocationId);
                 InitializeView();
+                //OnPlayerMove();
             }
         }
         /// <summary>
@@ -100,12 +112,60 @@ namespace TBQuestGame.PresentationLayer
             {
                 _map.CurrentLocationId += 1;
                 Map.CurrentLocation = _map.MapLocations.FirstOrDefault(l => l.Id == _map.CurrentLocationId);
+                //OnPlayerMove();
+                ModifyHealth();
             }
+        }
+        /// <summary>
+        /// ***Switch method to use observable objects for health***
+        /// </summary>
+        public void ModifyHealth()
+        {
+            if (Map.CurrentLocationId == 5)
+            {
+                Player.Health = Player.Health - 50;
+            }
+            //if (Player.Health == 0)
+            //{
+            //    Player.Lives--;
+            //}
         }
         private void InitializeView()
         {
             _player.UpdateInventoryCategories();
         }
+        /// <summary>
+        /// player move event handler    *** Error **
+        /// </summary>
+        //private void OnPlayerMove()
+        //{
+        //    //
+        //    // update player stats when in new location
+        //    //
+        //    if (!_player.HasVisited(location: Map.CurrentLocation))
+        //    {
+        //        //
+        //        // add location to list of visited locations
+        //        //
+        //        _player.LocationsVisited.Add(_map.CurrentLocation);
+
+        //        //
+        //        // update health
+        //        //
+        //        _player.Health += _map.CurrentLocation.ModifyHealth;
+
+        //        //
+        //        // update lives
+        //        //
+        //        _player.Lives += _map.CurrentLocation.ModifyLives;
+
+        //        //
+        //        // display a new message if available
+        //        //
+        //        OnPropertyChanged(nameof(MessageDisplay));
+        //    }
+        //}
+
         /// <summary>
         /// Method to add to player inventory by taking item from current game map location
         /// </summary>
@@ -117,16 +177,16 @@ namespace TBQuestGame.PresentationLayer
                 // Cast selected game item
                 GameItem selectedGameItem = _currentGameItem as GameItem;
 
-                _map.CurrentLocation.RemoveGameItemFromLocation(selectedGameItem);
+                Map.CurrentLocation.RemoveGameItemFromLocation(selectedGameItem);
                 _player.AddGameItemToInventory(selectedGameItem);
 
                 //OnPlayerPickUp(selectedGameItem);
             }
         }
-
+  
         //private void OnPlayerPickUp(GameItem selectedGameItem)
         //{
-        //    _player.Currency -= //price of buildmaterial game item
+        //    _player.Currency -= GameItem.Price;
         //}
 
         /// <summary>
@@ -141,7 +201,7 @@ namespace TBQuestGame.PresentationLayer
                 //cast selected game item
                 GameItem selectedGameItem = _currentGameItem as GameItem;
 
-                _map.CurrentLocation.AddGameItemToLocation(selectedGameItem);
+                Map.CurrentLocation.AddGameItemToLocation(selectedGameItem);
                 _player.RemoveGameItemFromInventory(selectedGameItem);
 
                 //OnPlayerPutDown(selectedGameItem);

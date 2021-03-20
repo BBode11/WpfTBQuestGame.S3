@@ -19,6 +19,8 @@ namespace TBQuestGame.Models
         private int _health;
         private int _lives;
         private int _currency;
+
+        private List<Location> _locationsVisited;
         private ObservableCollection<GameItem> _inventory;
         private ObservableCollection<GameItem> _weapons;
         private ObservableCollection<GameItem> _buildMaterials;
@@ -26,6 +28,11 @@ namespace TBQuestGame.Models
         #endregion
 
         #region PROPERTIES
+        public List<Location> LocationsVisited
+        {
+            get { return _locationsVisited; }
+            set { _locationsVisited = value; }
+        }
         public int Currency
         {
             get { return _currency; }
@@ -58,6 +65,7 @@ namespace TBQuestGame.Models
                 }
                 else if (_health <= 0)
                 {
+                    _health = 100;
                     _lives--;
                 }
                 OnPropertyChanged(nameof(Health));
@@ -85,11 +93,14 @@ namespace TBQuestGame.Models
         /// </summary>
         public Player()
         {
+            _locationsVisited = new List<Location>();
             _weapons = new ObservableCollection<GameItem>();
             _buildMaterials = new ObservableCollection<GameItem>();
         }
         #endregion
         #region METHODS
+        
+
         /// <summary>
         /// Method for updating the observable collection of the derived game items
         /// </summary>
@@ -97,7 +108,7 @@ namespace TBQuestGame.Models
         {
             Weapons.Clear();
             BuildMaterials.Clear();
-            //error will not let user go back to previous isles
+          
             foreach (var gameItem in _inventory)
             {
                 if (gameItem is Weapon) Weapons.Add(gameItem);
@@ -115,7 +126,10 @@ namespace TBQuestGame.Models
                 _inventory.Add(selectedGameItem);
             }
         }
-
+        /// <summary>
+        /// Method for removing game item from inventory
+        /// </summary>
+        /// <param name="selectedGameItem"></param>
         public void RemoveGameItemFromInventory(GameItem selectedGameItem)
         {
             if (selectedGameItem != null)
@@ -123,7 +137,15 @@ namespace TBQuestGame.Models
                 _inventory.Remove(selectedGameItem);
             }
         }
-
+        /// <summary>
+        /// Method used for locations user has been
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public bool HasVisited(Location location)
+        {
+            return _locationsVisited.Contains(location);
+        }
         public override string DefaultPlayerGreeting()
         {
             return $"Hello my name is {_name} and I am looking for materials.";

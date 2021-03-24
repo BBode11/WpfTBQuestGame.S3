@@ -268,6 +268,7 @@
                     <Label 
                         Content="Current Location Information"
                         Style="{StaticResource MainPanelLabelStyle}"/>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="50">
                     <TextBlock 
                         
                         x:Name="CurrentLocationTextBlock"
@@ -276,6 +277,7 @@
                         FontSize="11"
                         Height="48"
                         Margin="5,0,5,0"/>
+                        </ScrollViewer>
                     <TabControl
                         x:Name="ItemsInfoTabControl"
                         Width="272">

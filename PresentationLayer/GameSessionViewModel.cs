@@ -99,6 +99,7 @@ namespace TBQuestGame.PresentationLayer
                 _map.CurrentLocationId -= 1;
                 Map.CurrentLocation = _map.MapLocations.FirstOrDefault(l => l.Id == _map.CurrentLocationId);
                 InitializeView();
+                ModifyHealth();
                 //OnPlayerMove();
             }
         }
@@ -117,18 +118,20 @@ namespace TBQuestGame.PresentationLayer
             }
         }
         /// <summary>
-        /// ***Switch method to use observable objects for health***
+        /// Method to modify health based on certain locations
         /// </summary>
         public void ModifyHealth()
         {
             if (Map.CurrentLocationId == 5)
             {
                 Player.Health = Player.Health - 50;
+                if (Player.Health <= 0)
+                {
+                    Player.Lives--;
+                    Player.Health = 100;
+                }
             }
-            //if (Player.Health == 0)
-            //{
-            //    Player.Lives--;
-            //}
+
         }
         private void InitializeView()
         {
@@ -184,7 +187,7 @@ namespace TBQuestGame.PresentationLayer
             }
         }
   
-        //private void OnPlayerPickUp(GameItem selectedGameItem)
+        //private void OnPlayerPickUp(GameItem selectedGameItem
         //{
         //    _player.Currency -= GameItem.Price;
         //}

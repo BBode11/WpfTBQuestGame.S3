@@ -49,7 +49,7 @@ namespace TBQuestGame.PresentationLayer
 
         private void DropButton_Click(object sender, RoutedEventArgs e)
         {
-            if (LocationItemsDataGrid.SelectedItem != null)
+            if (InventoryDataGrid.SelectedItem != null)
             {
                 _gameSessionViewModel.RemoveItemFromInventory();
             }
